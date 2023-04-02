@@ -24,6 +24,7 @@ WORKDIR /root/
 
 # Copy the binary from the builder stage
 COPY --from=builder /app/listingd .
+COPY --from=builder /app/config.yaml .
 
 # Expose the API port
 EXPOSE 8080
