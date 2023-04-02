@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: listingd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: listingd
+  template:
+    metadata:
+      labels:
+        app: listingd
+    spec:
+      containers:
+      - name: listingd
+        image: YOUR-DOCKER-IMAGE:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: listingd-config
+        - secretRef:
+            name: jwt-secret
+        env:
+        - name: GIN_MODE
+          value: "release"
